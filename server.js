@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 
 app.get('/weather', (request, response) => {
-  response.json(weatherData);
-})
+  response.json(forcastData);
+});
 
 app.get('/',(request, response) => {
   response.send('chea!');
@@ -23,11 +23,31 @@ app.get('/',(request, response) => {
 
 let forcastData = [];
 
-function Forcast (date, description){
+function Forcast (date, description, highTemp, lowTemp){
   this.date = date;
   this.description = description;
+  this.highTemp = highTemp;
+  this.lowTemp = lowTemp
   forcastData.push(this);
 }
+
+new Forcast(weatherData.data[0].datetime, weatherData.data[0].weather.description, weatherData.data[0].max_temp, weatherData.data[0].min_temp);
+new Forcast(weatherData.data[1].datetime, weatherData.data[1].weather.description, weatherData.data[1].max_temp, weatherData.data[1].min_temp);
+new Forcast(weatherData.data[2].datetime, weatherData.data[2].weather.description, weatherData.data[2].max_temp, weatherData.data[2].min_temp);
+new Forcast(weatherData.data[3].datetime, weatherData.data[3].weather.description, weatherData.data[3].max_temp, weatherData.data[3].min_temp);
+new Forcast(weatherData.data[4].datetime, weatherData.data[4].weather.description, weatherData.data[4].max_temp, weatherData.data[4].min_temp);
+new Forcast(weatherData.data[5].datetime, weatherData.data[5].weather.description, weatherData.data[5].max_temp, weatherData.data[5].min_temp);
+new Forcast(weatherData.data[6].datetime, weatherData.data[6].weather.description, weatherData.data[6].max_temp, weatherData.data[6].min_temp);
+new Forcast(weatherData.data[7].datetime, weatherData.data[7].weather.description, weatherData.data[7].max_temp, weatherData.data[7].min_temp);
+new Forcast(weatherData.data[8].datetime, weatherData.data[8].weather.description, weatherData.data[8].max_temp, weatherData.data[8].min_temp);
+new Forcast(weatherData.data[9].datetime, weatherData.data[9].weather.description, weatherData.data[9].max_temp, weatherData.data[9].min_temp);
+new Forcast(weatherData.data[10].datetime, weatherData.data[10].weather.description, weatherData.data[10].max_temp, weatherData.data[10].min_temp);
+new Forcast(weatherData.data[11].datetime, weatherData.data[11].weather.description, weatherData.data[11].max_temp, weatherData.data[11].min_temp);
+new Forcast(weatherData.data[12].datetime, weatherData.data[12].weather.description, weatherData.data[12].max_temp, weatherData.data[12].min_temp);
+new Forcast(weatherData.data[13].datetime, weatherData.data[13].weather.description, weatherData.data[13].max_temp, weatherData.data[13].min_temp);
+new Forcast(weatherData.data[14].datetime, weatherData.data[14].weather.description, weatherData.data[14].max_temp, weatherData.data[14].min_temp);
+new Forcast(weatherData.data[15].datetime, weatherData.data[15].weather.description, weatherData.data[15].max_temp, weatherData.data[15].min_temp);
+
 
 
 
