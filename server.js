@@ -15,7 +15,7 @@ app.get('/weather', (request, response) => {
   try {
     //request.lat, request.lon;
     const forcastData = weatherData.data.map(day => new Forcast(day));
-    response.json(forcastDat);
+    response.json(forcastData);
   } catch(error){
     handleErrors(error, response)
   }
