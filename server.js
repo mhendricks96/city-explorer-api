@@ -14,7 +14,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 
 app.get('/weather', (request, response) => {
+  //request.lat, request.lon;
   response.json(forcastData);
+  //console.log(weatherData)
 });
 
 app.get('/',(request, response) => {
