@@ -11,14 +11,16 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 //This is where most of my code will go
-
-
 app.get('/weather', (request, response) => {
-  //request.lat, request.lon;
-  const forcastData = weatherData.data.map(day => new Forcast(day));
-  response.json(forcastData);
-  //console.log(weatherData)
+  try {
+    //request.lat, request.lon;
+    const forcastData = weatherData.data.map(day => new Forcast(day));
+    response.json(forcastDat);
+  } catch(error){
+    handleErrors(error, response)
+  }
 });
+  
 
 app.get('/',(request, response) => {
   response.send('chea!');
@@ -30,6 +32,10 @@ function Forcast (day){
   this.description = day.weather.description;
   this.highTemp = day.max_temp;
   this.lowTemp = day.min_temp;
+}
+
+function handleErrors(error, response){
+  response.status(500).send('Internal Error')
 }
 
 //This is all dynamic above
