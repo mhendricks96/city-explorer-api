@@ -40,7 +40,7 @@ function getWeatherfromapi (request, response){
     .get(url)
     .query(query)
     .then(weatherResults => {
-      response.status(200).send(weatherResults.body.minutely.map(minute =>new MinuteForcast(minute)) );
+      response.status(200).send(weatherResults.body.minutely.map(minute =>new MinuteForcast(minute)));
     })
   }
   
