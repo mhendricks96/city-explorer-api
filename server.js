@@ -28,19 +28,20 @@ function getWeatherfromapi (request, response){
   //const weatherQuery = 'bees';
   //const lat = request.query.lat,
   //const lon = request.query.lon,
-  const url = 'https://api.weatherbit.io/v2.0/current';
+  const url = 'https://api.weatherbit.io/v2.0/forecast/daily';
+  
   const query = {
     key: process.env.REACT_APP_WEATHER_API_KEY,
     lat: request.query.lat,
     lon: request.query.lon,
-    include: 'minutely',
+    
   }
 
   superagent
     .get(url)
     .query(query)
     .then(weatherResults => {
-      response.status(200).send(weatherResults.body.minutely.map(minute =>new MinuteForcast(minute)));
+      response.status(200).send(weatherResults.body.data.map(day =>new DailyForcast(day)));
     })
   }
   
@@ -52,9 +53,12 @@ function getWeatherfromapi (request, response){
 // precip
 
 
-function MinuteForcast (minute){
-  this.temp = minute.temp;
-  this.precip = minute.precip;
+function DailyForcast (day){
+  this.date = day.datetime;
+  this.description = day.weather.description;
+  //this.low = day.weather.low_temp;
+  //this.high = day.weather.max_temp;
+  
 }
 
 
