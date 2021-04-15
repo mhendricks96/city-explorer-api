@@ -14,20 +14,38 @@ const PORT = process.env.PORT || 3001;
 
 //This is where most of my code will go
 
+app.get('/movies', getMoviesFromapi);
 
+  function getMoviesFromapi(request, response){
+  console.log(request.query.citySubmitted);
 
-////should not get the weather from weather api instead of local json file
+  const url = 'https://api.themoviedb.org/3/search/movie';
+
+  const query = {
+    api_key: process.env.REACT_APP_MOVIE_API_KEY,
+    query: request.query.citySubmitted,
+  }
+
+  superagent
+    .get(url)
+    .query(query)
+    .then(movieResults => {
+      console.log(movieResults.body.results);
+      response.status(200).send(movieResults.body.results.map(movie => new MovieList(movie)))
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
+
+////should now get the weather from weather api instead of local json file
 app.get('/weather', getWeatherfromapi);
 
     // set up for easy superagent use
-    
-
-function getWeatherfromapi (request, response){
+  function getWeatherfromapi (request, response){
   console.log(request.query.lat);
   console.log(request.query.lon);
-  //const weatherQuery = 'bees';
-  //const lat = request.query.lat,
-  //const lon = request.query.lon,
+ 
   const url = 'https://api.weatherbit.io/v2.0/forecast/daily';
   
   const query = {
@@ -43,6 +61,9 @@ function getWeatherfromapi (request, response){
     .then(weatherResults => {
       response.status(200).send(weatherResults.body.data.map(day =>new DailyForcast(day)));
     })
+    .catch(err => {
+      console.error(err)
+    })
   }
   
 
@@ -51,13 +72,15 @@ function getWeatherfromapi (request, response){
 // temp
 // snow
 // precip
-
+function MovieList (movie){
+  this.title = movie.original_title;
+  this.description = movie.overview;
+}
 
 function DailyForcast (day){
   this.date = day.datetime;
   this.description = day.weather.description;
-  //this.low = day.weather.low_temp;
-  //this.high = day.weather.max_temp;
+  
   
 }
 
@@ -70,23 +93,9 @@ app.get('/',(request, response) => {
 
 
 
-
-
-
-
-
-
-
-//function Forcast (day){
-  //this.date = day.datetime;
-  //this.description = day.weather.description;
-  //this.highTemp = day.max_temp;
-  //this.lowTemp = day.min_temp;
+//function handleErrors(error, response){
+  //response.status(500).send('Internal Error')
 //}
-
-function handleErrors(error, response){
-  response.status(500).send('Internal Error')
-}
 
 
 
