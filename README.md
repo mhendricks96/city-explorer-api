@@ -4,15 +4,18 @@
 **Version**: 1.0.0
 
 ## Overview
+
 This it the api for my city exploer app. it contains all of the cities and the information about each one
 
 ## Getting Started
 
 
 ## Architecture
+
 I am currently using static JSON data to template out the project
 
 ## Change Log
+
 Today is the 10th of April and i am starting this API
 
 Estimate of time needed to complete: 3hrs
