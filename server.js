@@ -13,6 +13,8 @@ const superagent = require('superagent');
 const movies = require('./movies.js');
 const weather = require('./weather.js')
 const PORT = process.env.PORT || 3001;
+const WEATHERCACHE = {};
+const MOVIECACHE = {};
 
 //This is where most of my code will go
 
