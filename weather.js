@@ -1,6 +1,10 @@
 'use strict'
 const superagent = require('superagent');
 //sets up empty cache
+
+//values for the keys in the cache array
+//arr[0] is the time
+//arr[1] is the data
 const WEATHERCACHE = {};
 
 function weather (request, response){
@@ -9,10 +13,10 @@ function weather (request, response){
   const city = request.query.city;
   console.log(city)
   //if the city search is in cache
-  if(WEATHERCACHE[city]) {
+  if(WEATHERCACHE[city] && (Date.now() - WEATHERCACHE[city][0]) < (1000 * 60 * 60 * 6)) {
     console.log('weather pulling from cache');
     //dont go to api, get results from cache
-    let previousSearch = WEATHERCACHE[city];
+    let previousSearch = WEATHERCACHE[city][1];
     response.status(200).send(previousSearch);
   }else {
     //dont have this city saved, get it from the api
@@ -32,7 +36,8 @@ function weather (request, response){
       .then(weatherResults => {
         const weatherArray = weatherResults.body.data.map(day =>new DailyForcast(day));
         //saving the array of weather to my cache.
-        WEATHERCACHE[city] = weatherArray;
+        //also save current time
+        WEATHERCACHE[city] = [Date.now(),weatherArray];
         response.status(200).send(weatherArray);
       })
       .catch(err => {

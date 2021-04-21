@@ -8,9 +8,9 @@ function movies(request, response){
   //console.log(request.query.citySubmitted);
   const city = request.query.citySubmitted;
 
-  if(MOVIECACHE[city]) {
+  if(MOVIECACHE[city] && (Date.now() - MOVIECACHE[city][0]) < (1000 * 60 * 60 * 24 * 7) ) {
     console.log('movie saved in cache');
-    let previousSearch = MOVIECACHE[city];
+    let previousSearch = MOVIECACHE[city][1];
     response.status(200).send(previousSearch)
   }else{
     console.log('movie coming from api');
@@ -27,7 +27,7 @@ function movies(request, response){
       .then(movieResults => {
         const movieArray = movieResults.body.results.map(movie => new MovieList(movie));
         //console.log(movieResults.body.results);
-        MOVIECACHE[city] = movieArray;
+        MOVIECACHE[city] = [Date.now() ,movieArray];
         response.status(200).send(movieArray);
       })
       .catch(err => {
