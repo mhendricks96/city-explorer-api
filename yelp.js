@@ -25,7 +25,7 @@ function yelp(request, response){
     .set(headers)
     .query(query)
     .then(yelpResults => {
-      const yelpArray = yelpResults.body;
+      const yelpArray = yelpResults.body.businesses.map(restaurant => new RestaurantList(restaurant));
       response.status(200).send(yelpArray)
     })
     .catch(err => {
@@ -34,6 +34,11 @@ function yelp(request, response){
     
 }
 
+function RestaurantList (restaurant) {
+  this.name = restaurant.name;
+  this.type = restaurant.categories[0].title;
+  this.rating = restaurant.rating;
+  }
 
 
 
