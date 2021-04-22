@@ -11,7 +11,7 @@ function yelp(request, response){
   const query = {
     term: 'restaurants',
     location: city,
-    limit: 5,
+    limit: 3,
   }
     const headers =  {
       //contentType: application/json,
