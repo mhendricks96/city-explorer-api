@@ -11,7 +11,8 @@ require('dotenv').config();
 app.use(cors());
 const superagent = require('superagent');
 const movies = require('./movies.js');
-const weather = require('./weather.js')
+const weather = require('./weather.js');
+const yelp = require('./yelp.js');
 const PORT = process.env.PORT || 3001;
 const WEATHERCACHE = {};
 const MOVIECACHE = {};
@@ -24,6 +25,8 @@ app.get('/movies', movies);
 ////should now get the weather from weather api instead of local json file
 app.get('/weather', weather);
 
+
+app.get('/yelp', yelp);
     
 
 //proof of life/"landing"page

@@ -8,8 +8,7 @@ const superagent = require('superagent');
 const WEATHERCACHE = {};
 
 function weather (request, response){
-  //console.log(request.query.lat);
-  //console.log(request.query.lon);
+  
   const city = request.query.city;
   console.log(city)
   //if the city search is in cache
